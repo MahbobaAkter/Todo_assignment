@@ -1,6 +1,5 @@
-// Import the 'dotenv' package to be able to use environment variables from the .env file
 require('dotenv').config();
-// Import the 'pg' library, which allows us to interact with PostgreSQL databases
+
 const { Pool } = require('pg');
 
 

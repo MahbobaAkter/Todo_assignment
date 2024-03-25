@@ -28,21 +28,18 @@ class Todos
                                                          
             .then((response) =>         
             
-                response.json()   //                       
+                response.json()                  
             ) 
 
                                                              
             .then((json) =>             
-            {
-                
+            {                
                 this.#readJson(json); 
                 resolve(this.#tasks); 
-
             })
             
             .catch((error) => 
-            {
-                
+            {                
                 reject(error);
             });
         })
@@ -53,10 +50,8 @@ class Todos
     {
         
         tasksAsJson.forEach(currentElement => 
-        {
-          
-            const task1 = new Task(currentElement.id, currentElement.description);
-            
+        {          
+            const task1 = new Task(currentElement.id, currentElement.description);            
             this.#tasks.push(task1);    
         });
     }
@@ -68,12 +63,9 @@ class Todos
     {
         
         return new Promise((resolve, reject) => 
-        {
-           
-            const json1 = JSON.stringify({ description: taskContent });     
-            
-            
-           
+        {           
+            const json1 = JSON.stringify({ description: taskContent });  
+
             fetch(this.#backend_url + '/new', {
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' }, 
@@ -81,17 +73,15 @@ class Todos
             })
             
             .then(response => response.json()) 
-
             
             .then(json => 
-                {
-                    
+                {                    
                     resolve(this.#addToArray(json.id, taskContent));       
                 })
 
 
-            .catch(error => {
-               
+            .catch(error => 
+                {               
                 reject(error);            
             });
         });
@@ -149,56 +139,7 @@ class Todos
         this.#tasks = arrayWithoutRemoved;
     }
 
-
-
-
-   
-    updateTask = (id, text) => 
-    {
-        return new Promise((resolve, reject) => 
-        {
-            
-            const json1 = JSON.stringify({ description: text });
-
-           
-            fetch(this.#backend_url + '/update/' + id, 
-            {
-                method: 'PUT', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: json1 
-            })
-
-            .then(response => response.json()) 
-            
-            .then(json => 
-                {
-                
-                this.#updateArray(id, text);
-            
-                resolve(json); 
-                })
-
-            .catch(error => 
-                {
-                
-                reject(error);
-                });
-        });
-    }
-
-   
-    #updateArray = (id, text) => {
-        
-        const taskIndex = this.#tasks.findIndex(task => task.id === id);
-        if (taskIndex !== -1) {
-            this.#tasks[taskIndex].description = text;
-        }
-    }
-
-
 }
-
-
 
 
 
