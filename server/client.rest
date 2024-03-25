@@ -1,0 +1,11 @@
+### get tasks
+GET http://localhost:5500
+
+
+### Add new task # This will create a new task with the description provided in the JSON payload. 
+POST http://localhost:5500/new HTTP/1.1
+Content-Type: application/json
+
+{
+"description": "Test from REST Client"
+}
